@@ -47,7 +47,13 @@ Should be NIL if there is no file not the empty string"
   ;;        (add-hook comint-hook-sym (symbol-value local-comint-hook-fn-sym)))))
   ;;  '(comint-input-filter-functions
   ;;    comint-output-filter-functions
-  ;;    comint-preoutput-filter-functions))
+;;    comint-preoutput-filter-functions))
+
+;; (with-current-buffer (process-buffer (get-process wolfram-console-cmd-buffer-name))
+;;       (goto-char (point-max))
+;;       (insert  "cow\n" )
+;;       (comint-send-input)
+;;       (sit-for .1))
 
 
 (defun wolfram-console-ensure-session ()
@@ -56,6 +62,7 @@ Should be NIL if there is no file not the empty string"
   (or (get-process wolfram-console-cmd-buffer-name)
       (progn
         (wolfram-console-create-session)
+	(sleep-for .2)
         (get-process wolfram-console-cmd-buffer-name))))
 
 
